@@ -13,12 +13,12 @@ export default function Button(props) {
     }
   return (
     <TouchableOpacity  style={{
-        padding: 7,
+        padding:10,
         borderWidth: border,
         borderColor: color,
     }} 
     onPress={onClick}>
-        <Text style={{color: color}}>{props.text}</Text>
+        <Text style={{color: color, fontSize: 16}}>{props.text}</Text>
     </TouchableOpacity>
     
   )

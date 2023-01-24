@@ -15,9 +15,9 @@ export default function Controller() {
             return (
                 <Starting email={email} cell={cell} setPage={setPage} setEmail={setEmail} setCell={setCell} />
             )
-        case 'Comfirm':
+        case 'Confirm':
             return (
-                <Comfirm email={email} cell={cell} setPage={setPage} setFinish={setFinish} />
+                <Confirm email={email} cell={cell} setPage={setPage} setFinish={setFinish} />
             )
         case 'Finish':
             return (
