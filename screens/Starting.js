@@ -4,35 +4,41 @@ import Button from '../components/Button'
 import Card from '../components/Card'
 
 export default function Starting(props) {
-  const [tempEmail, setTempEmail] = useState();
-  const [tempCell, setTempCell] = useState();
   const [emailValidInfo, setEmailValidInfo] = useState(0);
   const [cellValidInfo, setCellValidInfo] = useState(0);
 
   function Reset() {
-    setTempEmail();
-    setTempCell();
+    props.setEmail();
+    props.setCell();
+    setEmailValidInfo(1);
+    setCellValidInfo(1);
   }
 
   function SignUp() {
-    props.setPage('Confirm');
+    if (emailValidInfo === 0 && cellValidInfo === 0) {
+      props.setEmail(props.email);
+      props.setCell(props.cell);
+      props.setPage('Confirm');
+    }
   }
 
   function ValidEmail(changedText) {
-    setTempEmail(changedText);
-    if (changedText == "Hello") {
-      setEmailValidInfo(0);
-    } else {
+    props.setEmail(changedText);
+    let validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (validRegex.test(changedText) === false) {
       setEmailValidInfo(1);
+    } else {
+      setEmailValidInfo(0);
     }
   }
 
   function ValidCell(changedText) {
-    setTempCell(changedText);
-    if (changedText == "1234") {
-      setCellValidInfo(0);
-    } else {
+    props.setCell(changedText);
+    let validRegex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    if (validRegex.test(changedText) === false) {
       setCellValidInfo(1);
+    } else {
+      setCellValidInfo(0);
     }
   }
 
@@ -43,14 +49,17 @@ export default function Starting(props) {
         <Text style={styles.title}>Email address</Text>
         <TextInput
           style={styles.input}
-          value={tempEmail}
+          value={props.email}
+          autoCapitalize={'none'}
+          keyboardType={'default'}
           onChangeText={ValidEmail}
            />
         <Text style={[styles.warning, {opacity:emailValidInfo}]}>Please enter a valid email</Text>
         <Text style={styles.title}>Phone number</Text>
         <TextInput
           style={styles.input}
-          value={tempCell}
+          value={props.cell}
+          autoCapitalize={'none'}
           onChangeText={ValidCell} />
         <Text style={[styles.warning, {opacity:cellValidInfo}]}>Please enter a valid phone number</Text>
         <View style={styles.inline}>
@@ -72,9 +81,9 @@ const styles = StyleSheet.create({
     },
     input: {
       width: '100%',
-      borderBottomWidth: 1.5,
+      borderBottomWidth: 1,
       fontWeight: 'bold',
-      padding: 5,
+      padding: 10,
       textAlign: 'center',
       color: 'blue',
       borderBottomColor: 'blue',

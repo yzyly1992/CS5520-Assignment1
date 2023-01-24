@@ -21,7 +21,7 @@ export default function Controller() {
             )
         case 'Finish':
             return (
-                <Finish cell={cell} setPage={setPage} setFinish={setFinish} setEmail={setEmail} setCell={setCell} />
+                <Finish cell={cell} finish={finish} setPage={setPage} setFinish={setFinish} setEmail={setEmail} setCell={setCell} />
             )
         default:
             return (

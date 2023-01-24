@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ProgressViewIOSComponent } from 'react-native'
 import React from 'react'
 import Card from '../components/Card'
 import Button from '../components/Button'
@@ -15,7 +15,10 @@ export default function Confirm(props) {
         </View>
         <View style={styles.col}>
           <Button text='Go back' onClick={()=>props.setPage('Startinig')} color='red' />
-          <Button text='Confirm' onClick={()=>props.setFinish(true)} />
+          <Button text='Confirm' onClick={()=> {
+            props.setFinish(true);
+            props.setPage('Finish');
+          }} />
           <Button text='Finish Later' onClick={()=>props.setPage('Finish')} />
         </View>
       </Card>
