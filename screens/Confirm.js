@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet, ProgressViewIOSComponent } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import React from 'react'
 import Card from '../components/Card'
 import Button from '../components/Button'
+import { myColor } from '../components/Color'
 
 export default function Confirm(props) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Card>
         <View>
           <Text style={styles.info}>You have entered:</Text>
@@ -14,7 +15,7 @@ export default function Confirm(props) {
           <Text style={styles.info}>Please confirm they are correct.</Text>
         </View>
         <View style={styles.col}>
-          <Button text='Go back' onClick={()=>props.setPage('Startinig')} color='red' />
+          <Button text='Go back' onClick={()=>props.setPage('Startinig')} color='danger' />
           <Button text='Confirm' onClick={()=> {
             props.setFinish(true);
             props.setPage('Finish');
@@ -22,21 +23,21 @@ export default function Confirm(props) {
           <Button text='Finish Later' onClick={()=>props.setPage('Finish')} />
         </View>
       </Card>
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 50,
   },
   info: {
-    color: 'purple',
+    color: myColor.select,
     fontSize: 16,
+    margin: 2,
   },
   col: {
     display: 'flex',

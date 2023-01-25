@@ -1,7 +1,8 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native'
 import React from 'react'
 import Card from '../components/Card'
-import Button from '../components/Button';
+import Button from '../components/Button'
+import { myColor } from '../components/Color'
 
 export default function Finish(props) {
   let link = "https://picsum.photos/id/" + props.cell.slice(-1) + "/100/100";
@@ -11,12 +12,14 @@ export default function Finish(props) {
     props.setCell();
     props.setFinish(false);
     props.setPage('Starting');
+    props.setEmailValidInfo(0);
+    props.setCellValidInfo(0);
   }
 
   switch (props.finish) {
     case true:
       return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <Card>
           <View style={styles.col}>
             <Text style={styles.info}>Thank you for signing up. Here's a picture for you (based on the last digit of your phone number).</Text>
@@ -27,11 +30,11 @@ export default function Finish(props) {
           </View>
           </Card>
           <Button text="Start Again" onClick={StartOver} />
-        </View>
+        </SafeAreaView>
       )
     case false:
       return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <Card>
             <View style={styles.col}>
               <Text style={styles.info}>Sorry to see you go.</Text>
@@ -42,7 +45,7 @@ export default function Finish(props) {
             </View>
           </Card>
           <Button text="Start Again" onClick={StartOver} />
-        </View>
+        </SafeAreaView>
       )
   }
 }
@@ -50,13 +53,12 @@ export default function Finish(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
     margin: 50,
   },
   info: {
-    color: 'purple',
+    color: myColor.select,
     fontSize: 16,
   },
   img: {

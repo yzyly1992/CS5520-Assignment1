@@ -1,50 +1,51 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native'
-import React, {useState} from 'react'
+import { View, Text, TextInput, StyleSheet, SafeAreaView } from 'react-native'
+import React from 'react'
 import Button from '../components/Button'
 import Card from '../components/Card'
+import { myColor } from '../components/Color'
 
 export default function Starting(props) {
-  const [emailValidInfo, setEmailValidInfo] = useState(0);
-  const [cellValidInfo, setCellValidInfo] = useState(0);
 
   function Reset() {
     props.setEmail();
     props.setCell();
-    setEmailValidInfo(1);
-    setCellValidInfo(1);
+    props.setEmailValidInfo(0);
+    props.setCellValidInfo(0);
   }
 
   function SignUp() {
-    if (emailValidInfo === 0 && cellValidInfo === 0) {
-      props.setEmail(props.email);
-      props.setCell(props.cell);
+    let boolEmail = ValidEmail();
+    let boolCell = ValidCell();
+    if (boolEmail && boolCell) {
       props.setPage('Confirm');
-    }
+    } 
   }
 
-  function ValidEmail(changedText) {
-    props.setEmail(changedText);
+  function ValidEmail() {
     let validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (validRegex.test(changedText) === false) {
-      setEmailValidInfo(1);
+    if (validRegex.test(props.email) === false) {
+      props.setEmailValidInfo(1);
+      return false;
     } else {
-      setEmailValidInfo(0);
+      props.setEmailValidInfo(0);
+      return true;
     }
   }
 
-  function ValidCell(changedText) {
-    props.setCell(changedText);
+  function ValidCell() {
     let validRegex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-    if (validRegex.test(changedText) === false) {
-      setCellValidInfo(1);
+    if (validRegex.test(props.cell) === false) {
+      props.setCellValidInfo(1);
+      return false;
     } else {
-      setCellValidInfo(0);
+      props.setCellValidInfo(0);
+      return true;
     }
   }
 
   return (
-    <View style={styles.container}>
-      <Button text='Sign up' border='true' color='blue' />
+    <SafeAreaView style={styles.container}>
+      <Button text='Sign up' border='true' />
       <Card>
         <Text style={styles.title}>Email address</Text>
         <TextInput
@@ -52,29 +53,36 @@ export default function Starting(props) {
           value={props.email}
           autoCapitalize={'none'}
           keyboardType={'default'}
-          onChangeText={ValidEmail}
+          onChangeText={(changedText)=>{
+            props.setEmail(changedText);
+            props.setEmailValidInfo(0);
+            props.setCellValidInfo(0);
+          }}
            />
-        <Text style={[styles.warning, {opacity:emailValidInfo}]}>Please enter a valid email</Text>
+        <Text style={[styles.warning, {opacity:props.emailValidInfo}]}>Please enter a valid email</Text>
         <Text style={styles.title}>Phone number</Text>
         <TextInput
           style={styles.input}
           value={props.cell}
           autoCapitalize={'none'}
-          onChangeText={ValidCell} />
-        <Text style={[styles.warning, {opacity:cellValidInfo}]}>Please enter a valid phone number</Text>
+          onChangeText={(changedText)=>{
+            props.setCell(changedText);
+            props.setEmailValidInfo(0);
+            props.setCellValidInfo(0);
+          }} />
+        <Text style={[styles.warning, {opacity:props.cellValidInfo}]}>Please enter a valid phone number</Text>
         <View style={styles.inline}>
-            <Button text='Reset' color='red' onClick={Reset} />
+            <Button text='Reset' color='danger' onClick={Reset} />
             <Button text='Sign up' onClick={SignUp} />
         </View>
       </Card>
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'flex-start',
       margin: 50,
@@ -85,16 +93,17 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       padding: 10,
       textAlign: 'center',
-      color: 'blue',
-      borderBottomColor: 'blue',
+      color: myColor.default,
+      borderBottomColor: myColor.default,
     },
     warning: {
       fontSize: 14,
       marginBottom: 15,
+      color: myColor.silent,
     },
     title: {
       fontSize: 16,
-      color: 'blue',
+      color: myColor.default,
       marginVertical: 5,
     },
     inline: {

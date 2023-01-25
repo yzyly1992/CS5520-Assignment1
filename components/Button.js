@@ -1,12 +1,13 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { myColor } from './Color'
 
 export default function Button(props) {
     let border = 0;
-    let color = 'blue';
+    let color = myColor.default;
     const onClick = props.onClick;
-    if (props.color == 'red') {
-        color = 'red'
+    if (props.color == 'danger') {
+        color = myColor.danger;
     }
     if (props.border == 'true') {
         border = 1;
