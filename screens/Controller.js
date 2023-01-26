@@ -11,8 +11,6 @@ export default function Controller() {
     const [email, setEmail] = useState();
     const [cell, setCell] = useState();
     const [finish, setFinish] = useState(false);
-    const [emailValidInfo, setEmailValidInfo] = useState(0);
-    const [cellValidInfo, setCellValidInfo] = useState(0);
 
     switch (page) {
         case 'Starting':
@@ -23,7 +21,7 @@ export default function Controller() {
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                 >
-                    <Starting email={email} cell={cell} setPage={setPage} setEmail={setEmail} setCell={setCell} emailValidInfo={emailValidInfo} setEmailValidInfo={setEmailValidInfo} cellValidInfo={cellValidInfo} setCellValidInfo={setCellValidInfo} />
+                    <Starting email={email} cell={cell} setPage={setPage} setEmail={setEmail} setCell={setCell} />
                 </LinearGradient>
             )
         case 'Confirm':
@@ -45,7 +43,7 @@ export default function Controller() {
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 >
-                    <Finish cell={cell} finish={finish} setPage={setPage} setFinish={setFinish} setEmail={setEmail} setCell={setCell} setEmailValidInfo={setEmailValidInfo} setCellValidInfo={setCellValidInfo}/>
+                    <Finish cell={cell} finish={finish} setPage={setPage} setFinish={setFinish} setEmail={setEmail} setCell={setCell} />
                 </LinearGradient>
             )
         default:
@@ -56,7 +54,7 @@ export default function Controller() {
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
             >
-                <Starting email={email} cell={cell} setPage={setPage} setEmail={setEmail} setCell={setCell} emailValidInfo={emailValidInfo} setEmailValidInfo={setEmailValidInfo} cellValidInfo={cellValidInfo} setCellValidInfo={setCellValidInfo} />
+                <Starting email={email} cell={cell} setPage={setPage} setEmail={setEmail} setCell={setCell} />
             </LinearGradient>
             )
     }

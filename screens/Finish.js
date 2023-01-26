@@ -12,8 +12,6 @@ export default function Finish(props) {
     props.setCell();
     props.setFinish(false);
     props.setPage('Starting');
-    props.setEmailValidInfo(0);
-    props.setCellValidInfo(0);
   }
 
   switch (props.finish) {

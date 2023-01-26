@@ -1,16 +1,18 @@
 import { View, Text, TextInput, StyleSheet, SafeAreaView } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import { myColor } from '../components/Color'
 
 export default function Starting(props) {
+  const [emailValidInfo, setEmailValidInfo] = useState(0);
+  const [cellValidInfo, setCellValidInfo] = useState(0);
 
   function Reset() {
     props.setEmail();
     props.setCell();
-    props.setEmailValidInfo(0);
-    props.setCellValidInfo(0);
+    setEmailValidInfo(0);
+    setCellValidInfo(0);
   }
 
   function SignUp() {
@@ -24,10 +26,10 @@ export default function Starting(props) {
   function ValidEmail() {
     let validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (validRegex.test(props.email) === false) {
-      props.setEmailValidInfo(1);
+      setEmailValidInfo(1);
       return false;
     } else {
-      props.setEmailValidInfo(0);
+      setEmailValidInfo(0);
       return true;
     }
   }
@@ -35,10 +37,10 @@ export default function Starting(props) {
   function ValidCell() {
     let validRegex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
     if (validRegex.test(props.cell) === false) {
-      props.setCellValidInfo(1);
+      setCellValidInfo(1);
       return false;
     } else {
-      props.setCellValidInfo(0);
+      setCellValidInfo(0);
       return true;
     }
   }
@@ -55,11 +57,11 @@ export default function Starting(props) {
           keyboardType={'default'}
           onChangeText={(changedText)=>{
             props.setEmail(changedText);
-            props.setEmailValidInfo(0);
-            props.setCellValidInfo(0);
+            setEmailValidInfo(0);
+            setCellValidInfo(0);
           }}
            />
-        <Text style={[styles.warning, {opacity:props.emailValidInfo}]}>Please enter a valid email</Text>
+        <Text style={[styles.warning, {opacity:emailValidInfo}]}>Please enter a valid email</Text>
         <Text style={styles.title}>Phone number</Text>
         <TextInput
           style={styles.input}
@@ -67,10 +69,10 @@ export default function Starting(props) {
           autoCapitalize={'none'}
           onChangeText={(changedText)=>{
             props.setCell(changedText);
-            props.setEmailValidInfo(0);
-            props.setCellValidInfo(0);
+            setEmailValidInfo(0);
+            setCellValidInfo(0);
           }} />
-        <Text style={[styles.warning, {opacity:props.cellValidInfo}]}>Please enter a valid phone number</Text>
+        <Text style={[styles.warning, {opacity:cellValidInfo}]}>Please enter a valid phone number</Text>
         <View style={styles.inline}>
             <Button text='Reset' color='danger' onClick={Reset} />
             <Button text='Sign up' onClick={SignUp} />
