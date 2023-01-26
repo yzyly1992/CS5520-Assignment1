@@ -16,5 +16,12 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 10,
         marginVertical: 30,
+        shadowOffset:  {
+          width: 10,
+          height: 10,
+        },
+        shadowColor: 'black',
+        shadowOpacity: '0.1',
+        shadowRadius: 15,
     },
   });
