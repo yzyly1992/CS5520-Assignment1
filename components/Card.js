@@ -12,7 +12,7 @@ export default function Card(props) {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        backgroundColor: 'rgba(255,255,255,0.5)',
+        backgroundColor: 'white',
         padding: 15,
         borderRadius: 10,
         marginVertical: 30,
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
           height: 10,
         },
         shadowColor: 'black',
-        shadowOpacity: '0.1',
+        shadowOpacity: '0.2',
         shadowRadius: 15,
+        elevation: 20,
     },
   });
